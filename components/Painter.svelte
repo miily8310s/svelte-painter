@@ -1,20 +1,20 @@
 <script lang="ts">
 import { onMount } from "svelte";
-let sizeEL;
-let canvas;
+let sizeEL: HTMLSpanElement;
+let canvas: HTMLCanvasElement;
 let size = 10;
 let isPressed = false;
 let color = "black";
 let x;
 let y;
-let ctx;
+let ctx: CanvasRenderingContext2D;
 
 onMount(() => {
   ctx = canvas.getContext("2d");
-  sizeEL.innerText = size;
+  sizeEL.innerText = size.toString();
 });
 
-function onCanvasMouseDown(e) {
+function onCanvasMouseDown(e: MouseEvent) {
   isPressed = true;
 
   x = e.offsetX;
@@ -28,7 +28,7 @@ function onCanvasMouseUp(e) {
   y = undefined;
 }
 
-function onCanvasMouseMove(e) {
+function onCanvasMouseMove(e: MouseEvent) {
   if (isPressed) {
     const x2 = e.offsetX;
     const y2 = e.offsetY;
@@ -41,14 +41,14 @@ function onCanvasMouseMove(e) {
   }
 }
 
-function drawCircle(x, y) {
+function drawCircle(x: number, y: number) {
   ctx.beginPath();
   ctx.arc(x, y, size, 0, Math.PI * 2);
   ctx.fillStyle = color;
   ctx.fill();
 }
 
-function drawLine(x1, y1, x2, y2) {
+function drawLine(x1: number, y1: number, x2: number, y2: number) {
   ctx.beginPath();
   ctx.moveTo(x1, y1);
   ctx.lineTo(x2, y2);
@@ -58,7 +58,7 @@ function drawLine(x1, y1, x2, y2) {
 }
 
 function updateSizeOnScreen() {
-  sizeEL.innerText = size;
+  sizeEL.innerText = size.toString();
 }
 
 function onClickIncrease() {
@@ -84,6 +84,11 @@ function onClickDecrease() {
 function onClickClear() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
+
+function onChangeColor(e: any) {
+  const target = e.target as HTMLInputElement;
+  color = target.value;
+}
 </script>
 
 <main>
@@ -98,11 +103,8 @@ function onClickClear() {
     <button on:click={onClickDecrease}>-</button>
     <span bind:this={sizeEL} />
     <button on:click={onClickIncrease}>+</button>
-    <input
-      type="color"
-      bind:value={color}
-      on:change={(e) => (color = e.target.value)} />
-    <button id="clear" on:click={onClickClear}>Clear</button>
+    <input type="color" bind:value={color} on:change={onChangeColor} />
+    <button on:click={onClickClear} class="clear">Clear</button>
   </div>
 </main>
 
@@ -150,6 +152,10 @@ canvas {
   margin: 0.25rem;
   padding: 0.25rem;
   cursor: pointer;
+}
+
+.toolbox > .clear {
+  padding: 0 3rem;
 }
 
 .toolbox > *:last-child {
