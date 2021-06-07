@@ -5,9 +5,11 @@ let canvas: HTMLCanvasElement;
 let size = 10;
 let isPressed = false;
 let color = "black";
-let x;
-let y;
+let x: number;
+let y: number;
 let ctx: CanvasRenderingContext2D;
+let hue = 0;
+let isRainbowClicked = false;
 
 onMount(() => {
   ctx = canvas.getContext("2d");
@@ -21,7 +23,7 @@ function onCanvasMouseDown(e: MouseEvent) {
   y = e.offsetY;
 }
 
-function onCanvasMouseUp(e) {
+function onCanvasMouseUp() {
   isPressed = false;
 
   x = undefined;
@@ -55,6 +57,14 @@ function drawLine(x1: number, y1: number, x2: number, y2: number) {
   ctx.strokeStyle = color;
   ctx.lineWidth = size * 2;
   ctx.stroke();
+
+  if (isRainbowClicked) {
+    hue++;
+    if (hue >= 360) {
+      hue = 0;
+    }
+    color = `hsl(${hue}, 100%, 50%)`;
+  }
 }
 
 function updateSizeOnScreen() {
@@ -89,6 +99,15 @@ function onChangeColor(e: any) {
   const target = e.target as HTMLInputElement;
   color = target.value;
 }
+
+function onClickColor() {
+  isRainbowClicked = false;
+}
+
+function onClickRainbowColor() {
+  isRainbowClicked = true;
+  color = `hsl(0, 100%, 50%)`;
+}
 </script>
 
 <main>
@@ -103,7 +122,12 @@ function onChangeColor(e: any) {
     <button on:click={onClickDecrease}>-</button>
     <span bind:this={sizeEL} />
     <button on:click={onClickIncrease}>+</button>
-    <input type="color" bind:value={color} on:change={onChangeColor} />
+    <input
+      type="color"
+      bind:value={color}
+      on:change={onChangeColor}
+      on:click={onClickColor} />
+    <button on:click={onClickRainbowColor}>🌈</button>
     <button on:click={onClickClear} class="clear">Clear</button>
   </div>
 </main>
@@ -124,7 +148,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 90vh;
   margin: 0;
 }
 
@@ -134,7 +158,6 @@ canvas {
 
 .toolbox {
   background-color: steelblue;
-  border: 1px solid slateblue;
   display: flex;
   width: 804px;
   padding: 1rem;
