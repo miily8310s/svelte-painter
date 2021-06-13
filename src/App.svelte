@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Painter } from "../components";
+import { Painter } from ".";
 </script>
 
 <svelte:head>
