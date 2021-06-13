@@ -1,7 +1,7 @@
 {
   "name": "svelte-painter",
   "version": "1.0.0",
-  "svelte": "src/Painter.svelte",
+  "svelte": "src/index.ts",
   "license": "MIT",
   "keywords": [
     "svelte",
