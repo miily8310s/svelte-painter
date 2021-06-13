@@ -1,7 +1,14 @@
 {
-  "name": "svelte-app",
+  "name": "svelte-painter",
   "version": "1.0.0",
   "private": true,
+  "svelte": "src/Painter.svelte",
+  "license": "MIT",
+  "keywords": [
+    "svelte",
+    "painter",
+    "svelte-painter"
+  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
