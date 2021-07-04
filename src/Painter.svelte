@@ -16,21 +16,21 @@ onMount(() => {
   sizeEL.innerText = size.toString();
 });
 
-function onCanvasMouseDown(e: MouseEvent) {
+const onCanvasMouseDown = (e: MouseEvent) => {
   isPressed = true;
 
   x = e.offsetX;
   y = e.offsetY;
-}
+};
 
-function onCanvasMouseUp() {
+const onCanvasMouseUp = () => {
   isPressed = false;
 
   x = undefined;
   y = undefined;
-}
+};
 
-function onCanvasMouseMove(e: MouseEvent) {
+const onCanvasMouseMove = (e: MouseEvent) => {
   if (isPressed) {
     const x2 = e.offsetX;
     const y2 = e.offsetY;
@@ -41,16 +41,16 @@ function onCanvasMouseMove(e: MouseEvent) {
     x = x2;
     y = y2;
   }
-}
+};
 
-function drawCircle(x: number, y: number) {
+const drawCircle = (x: number, y: number) => {
   ctx.beginPath();
   ctx.arc(x, y, size, 0, Math.PI * 2);
   ctx.fillStyle = color;
   ctx.fill();
-}
+};
 
-function drawLine(x1: number, y1: number, x2: number, y2: number) {
+const drawLine = (x1: number, y1: number, x2: number, y2: number) => {
   ctx.beginPath();
   ctx.moveTo(x1, y1);
   ctx.lineTo(x2, y2);
@@ -65,13 +65,13 @@ function drawLine(x1: number, y1: number, x2: number, y2: number) {
     }
     color = `hsl(${hue}, 100%, 50%)`;
   }
-}
+};
 
-function updateSizeOnScreen() {
+const updateSizeOnScreen = () => {
   sizeEL.innerText = size.toString();
-}
+};
 
-function onClickIncrease() {
+const onClickIncrease = () => {
   size += 5;
 
   if (size > 50) {
@@ -79,9 +79,9 @@ function onClickIncrease() {
   }
 
   updateSizeOnScreen();
-}
+};
 
-function onClickDecrease() {
+const onClickDecrease = () => {
   size -= 5;
 
   if (size < 5) {
@@ -89,25 +89,25 @@ function onClickDecrease() {
   }
 
   updateSizeOnScreen();
-}
+};
 
-function onClickClear() {
+const onClickClear = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
+};
 
-function onChangeColor(e: any) {
+const onChangeColor = (e: any) => {
   const target = e.target as HTMLInputElement;
   color = target.value;
-}
+};
 
-function onClickColor() {
+const onClickColor = () => {
   isRainbowClicked = false;
-}
+};
 
-function onClickRainbowColor() {
+const onClickRainbowColor = () => {
   isRainbowClicked = true;
   color = `hsl(0, 100%, 50%)`;
-}
+};
 </script>
 
 <main>
