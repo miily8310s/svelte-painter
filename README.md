@@ -18,6 +18,5 @@ yarn add -D svelte-painter
 
 ## TODO
 
-- Add Painter Size
 - Add Github Actions
 - Fix Bugs
