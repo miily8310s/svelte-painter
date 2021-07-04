@@ -108,6 +108,10 @@ const onClickRainbowColor = () => {
   isRainbowClicked = true;
   color = `hsl(0, 100%, 50%)`;
 };
+
+const onClickEraser = () => {
+  color = "white";
+};
 </script>
 
 <main>
@@ -128,6 +132,7 @@ const onClickRainbowColor = () => {
       on:change={onChangeColor}
       on:click={onClickColor} />
     <button on:click={onClickRainbowColor}>🌈</button>
+    <button on:click={onClickEraser}>✒</button>
     <button on:click={onClickClear} class="clear">Clear</button>
   </div>
 </main>
